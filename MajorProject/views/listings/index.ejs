@@ -1,16 +1,17 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <body>
+    
     <h2 class="mt-3">All Listings</h2>
 
     <!-- <form action="/listings/add/newlist" method="get">
         <button>New list</button>
     </form> -->
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 listing-card">
     <% for (let list of listings) { %>
       <a href="/listings/<%= list._id %>" style="text-decoration: none;">
         
-            <div class="card col" >
+            <div class="card col listing-card" >
 
                 <img  style="height: 20rem"
                     src="<%= list.image %>" 

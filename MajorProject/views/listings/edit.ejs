@@ -13,13 +13,13 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea name="description" placeholder="enter desciption" value="" id="description" class="form-control" required><%=list.description%></textarea>
+            <textarea name="description" placeholder="enter desciption"  id="description" class="form-control" required><%=list.description%></textarea>
             <div class="invalid-feedback">description should be required</div>
         </div>
     
         <div class="mb-3">
             <label for="img" class="form-label">Image URL/Link</label>
-            <input type="text" name="img" placeholder="enter URL/link" value="<%=list.image%>" class="form-control" id="img" required>
+            <input type="text" name="image" placeholder="enter URL/link" value="<%=list.image%>" class="form-control" id="img" required>
              <div class="invalid-feedback">Image link or URL required</div>
         </div>
         
@@ -45,7 +45,7 @@
             <div class="invalid-feedback">country should be required</div>
         </div>
 
-        <button class="btn add-btn mt-3">Update</button>
+        <button class="btn add-btn mt-3" >Update</button>
         </div>
     </form>
     </div>
