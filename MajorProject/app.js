@@ -15,10 +15,13 @@ const{listingSchema,reviewsSchema}=require("./Schema.js");
 const Review=require("./models/Reviews.js");
 const listingRoute=require("./routes/listingRoutes.js");
 const reviewRoute=require("./routes/reviewsRoutes.js");
+const userRoute=require("./routes/userRoutes.js");
 
 const session=require("express-session");
 const flash=require("connect-flash"); 
-
+const passport=require("passport");
+const LocaleStrategy=require("passport-local");
+const User = require("./models/User.js");
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
@@ -45,11 +48,22 @@ app.use(session({
 
 app.use(flash());
 
+
+
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocaleStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
     next();
 })
+
 
 const MONGO_URL="mongodb://127.0.0.1:27017/wonderlust";
 async function main(){
@@ -65,6 +79,18 @@ main().then(()=>{
 //Routes
 app.use("/listings",listingRoute);
 app.use("/listings/:id/reviews",reviewRoute);
+app.use("/",userRoute);
+
+app.get("/demouser",async(req,res)=>{
+    
+    const user=new User({
+        email:"pratik@gmail.com",
+        username:"pratikdemo"
+    });
+
+    const demou=await User.register(user,"palu");
+    res.send(demou);
+})
 
 
 app.get("/",(req,res)=>{
